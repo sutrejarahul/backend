@@ -1,0 +1,36 @@
+<configuration>
+
+    <!-- ✅ Set log level dynamically using Spring profiles -->
+    <springProperty name="LOG_LEVEL" source="logging.level.com.product" defaultValue="DEBUG" />
+
+    <!-- ✅ Console Appender (Logs to Terminal) -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%level] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ✅ File Appender (Logs to File with Rotation) -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Log files rotate daily and keep logs for 30 days -->
+            <fileNamePattern>logs/app-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%level] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+<!--    <logger name="org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl" level="ERROR"/>-->
+<!--    <logger name="org.hibernate.internal.AbstractSharedSessionContract" level="ERROR"/>-->
+<!--    <logger name="org.springframework.data.jpa.repository.query.NamedQuery" level="ERROR"/>-->
+
+    <!-- ✅ Root Logger (Applies to Entire App) -->
+    <root level="${LOG_LEVEL}">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>
