@@ -77,7 +77,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Optional<Product>>> saveOrUpdate(@RequestPart Product product, @RequestPart MultipartFile imageFile) throws IOException {
+    public ResponseEntity<ApiResponse<Optional<Product>>> saveOrUpdate(@RequestPart Product product, @RequestPart(required = false) MultipartFile imageFile) throws IOException {
         return ResponseEntity.ok(new ApiResponse<>(
                 true,
                 "Request successful",

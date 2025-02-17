@@ -42,14 +42,8 @@ public class Product {
     @JsonProperty("imageType")
     private String imageType;
 
-    @Lob
-    @JsonProperty("imageData")
-    @JsonIgnore
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] imageData;
-
-    @Transient // This field is not stored in the database
-    private String imageBase64;
+    @JsonProperty("imageUrl")
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
@@ -136,20 +130,12 @@ public class Product {
         this.imageType = imageType;
     }
 
-    public byte[] getImageData() {
-        return imageData;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageData(byte[] imageData) {
-        this.imageData = imageData;
-    }
-
-    public String getImageBase64() {
-        return imageBase64;
-    }
-
-    public void setImageBase64(String imageBase64) {
-        this.imageBase64 = imageBase64;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Category getCategory() {
