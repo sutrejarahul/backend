@@ -29,9 +29,7 @@ public class ProductService {
 
     public List<Product> getProducts() {
         List<Product> products = productRepository.findAll();
-        products.forEach(product -> {
-            product.setImageBase64(ImageUtil.encodeImage(product.getImageData()));
-        });
+        products.forEach(product -> product.setImageBase64(ImageUtil.encodeImage(product.getImageData())));
         return products;
     }
 
@@ -39,9 +37,7 @@ public class ProductService {
         logger.info("Fetching products by category ID: {}", id);  // 🔥 Logging API Call
         List<Product> list = productRepository.findByCategoryId(id);
         if(!list.isEmpty()) {
-            list.forEach(product -> {
-                product.setImageBase64(ImageUtil.encodeImage(product.getImageData()));
-            });
+            list.forEach(product -> product.setImageBase64(ImageUtil.encodeImage(product.getImageData())));
             return list;
         }
         logger.warn("Products not found for category ID: {}", id);
@@ -73,9 +69,6 @@ public class ProductService {
         product.setImageName(imageFile.getOriginalFilename());
         product.setImageType(imageFile.getContentType());
         product.setImageData(imageFile.getBytes());
-
-        System.out.println(product.toString());
-        
         Product savedProduct = productRepository.save(product);
         return productRepository.findById(savedProduct.getId());
     }
